@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div>  title? </div>
+        <div myAttr='./a.html'></div>
+        <div myAttr='./a.html'></div>
+        <div myAttr='./a.html'></div>
+        <div myAttr='./b.html'></div>
+        <script>
+            let myAttr = document.querySelectorAll('[myAttr]');
+            myAttr.forEach((element, index) => {
+                let path = element.getAttribute('myAttr')
+                let link = document.createElement('link');
+                link.rel = 'import';
+                link.href = path;
+                link.onload = (event) => {
+                    let content = document.importNode(event.path[0].import.body, true);
+                    element.appendChild(content);
+                }
+                document.head.appendChild(link);
+            });
+        </script>
+    </body>
+    
+</html>
